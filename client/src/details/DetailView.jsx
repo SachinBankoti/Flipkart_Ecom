@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProductDetails } from "../redux/actions/productActions";
 import { Box, Typography, styled, Grid } from "@mui/material";
+import ActionItem from "./ActionItem";
+import Productdetail from "./Productdetail";
 
 const Component = styled(Box)`
   background: #f2f2f2;
@@ -30,19 +32,21 @@ const DetailView = () => {
       dispatch(getProductDetails(id));
     }
   }, [dispatch, id, loading, product]);
+
+  console.log(product);
   return(
-     <Box>
-      {loading && 
-      <Box>
-        <Box>
-         
-        </Box>
-        <Box>
-          <Typography>{product.title.longTitle}</Typography>
-        </Box>
-      </Box>
+     <Component>
+      {product && Object.keys(product).length &&
+      <Container container>
+        <Grid item lg={4} md={4}  sm={8} xs={12}>
+          <ActionItem product ={product}/>
+        </Grid>
+        <RightContainer item  lg={8} md={8}  sm={8} xs={12} >
+         <Productdetail product={product}/>
+        </RightContainer>
+      </Container>
       }
-     </Box>
+     </Component>
 )}
 
 export default DetailView;
